@@ -33,7 +33,7 @@
 [![Infrastructure Tests](https://www.bridgecrew.cloud/badges/github/geekcell/terraform-aws-waf/hipaa)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=geekcell%2Fterraform-aws-waf&benchmark=HIPAA)
 [![Infrastructure Tests](https://www.bridgecrew.cloud/badges/github/geekcell/terraform-aws-waf/fedramp_moderate)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=geekcell%2Fterraform-aws-waf&benchmark=FEDRAMP+%28MODERATE%29)
 
-# Terraform AWS Cloudtrail
+# Terraform AWS WAF
 
 This Terraform module provides a preconfigured solution for setting up
 AWS WAF in your AWS account. AWS WAF is a web application firewall that
@@ -45,7 +45,7 @@ User Pool.
 
 Our team has extensive experience working with AWS WAF and has optimized
 this module to provide the best possible experience for users. The module
-encapsulates all necessary configurations, making it easy to use and
+ encapsulates all necessary configurations, making it easy to use and
 integrate into your existing AWS environment. Whether you are just getting
 started with AWS WAF or looking for a more efficient way to manage your
 web application firewall, this Terraform module provides a preconfigured
@@ -80,8 +80,8 @@ No outputs.
 ```hcl
 module "example" {
   source       = "../../"
-  name         = "my-waf"
-  resource_arn = "arn:aws:elasticloadbalancing:eu-west-1:123456789012:loadbalancer/app/my-load-balancer/1234567890123456"
+  name         = "waf"
+  resource_arn = "arn:aws:elasticloadbalancing:eu-central-1:123456789012:loadbalancer/app/my-load-balancer/1234567890123456"
 }
 ```
 <!-- END_TF_DOCS -->
