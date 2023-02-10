@@ -71,9 +71,9 @@ No outputs.
 
 ## Resources
 
-- resource.aws_wafv2_ip_set.ip_blocking (main.tf#490)
+- resource.aws_wafv2_ip_set.ip_blocking (main.tf#407)
 - resource.aws_wafv2_web_acl.main (main.tf#20)
-- resource.aws_wafv2_web_acl_association.main (main.tf#508)
+- resource.aws_wafv2_web_acl_association.main (main.tf#425)
 
 # Examples
 ### Basic Example
