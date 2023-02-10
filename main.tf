@@ -18,7 +18,7 @@
  * solution for protecting your web applications from common exploits.
  */
 resource "aws_wafv2_web_acl" "main" {
-  name        = local.web_acl_prefix
+  name        = local.prefix
   description = "Default Web ACL for ${var.name}"
   scope       = "REGIONAL"
 
@@ -42,7 +42,7 @@ resource "aws_wafv2_web_acl" "main" {
 
     visibility_config {
       cloudwatch_metrics_enabled = true
-      metric_name                = "${local.web_acl_prefix}-rule-ip-blocking"
+      metric_name                = "${local.prefix}-rule-ip-blocking"
       sampled_requests_enabled   = true
     }
   }
@@ -85,7 +85,7 @@ resource "aws_wafv2_web_acl" "main" {
 
     visibility_config {
       cloudwatch_metrics_enabled = true
-      metric_name                = "${local.web_acl_prefix}-rule-ip-rate-limit-for-api"
+      metric_name                = "${local.prefix}-rule-ip-rate-limit-for-api"
       sampled_requests_enabled   = true
     }
   }
@@ -128,7 +128,7 @@ resource "aws_wafv2_web_acl" "main" {
 
     visibility_config {
       cloudwatch_metrics_enabled = true
-      metric_name                = "${local.web_acl_prefix}-rule-ip-rate-limit-overall"
+      metric_name                = "${local.prefix}-rule-ip-rate-limit-overall"
       sampled_requests_enabled   = true
     }
   }
@@ -146,64 +146,26 @@ resource "aws_wafv2_web_acl" "main" {
         name        = "AWSManagedRulesBotControlRuleSet"
         vendor_name = "AWS"
 
-        excluded_rule {
-          name = "CategoryAdvertising"
-        }
-
-        excluded_rule {
-          name = "CategoryArchiver"
-        }
-
-        excluded_rule {
-          name = "CategoryContentFetcher"
-        }
-
-        excluded_rule {
-          name = "CategoryHttpLibrary"
-        }
-
-        excluded_rule {
-          name = "CategoryLinkChecker"
-        }
-
-        excluded_rule {
-          name = "CategoryMiscellaneous"
-        }
-
-        excluded_rule {
-          name = "CategoryMonitoring"
-        }
-
-        excluded_rule {
-          name = "CategoryScrapingFramework"
-        }
-
-        excluded_rule {
-          name = "CategorySearchEngine"
-        }
-
-        excluded_rule {
-          name = "CategorySecurity"
-        }
-
-        excluded_rule {
-          name = "CategorySeo"
-        }
-
-        excluded_rule {
-          name = "CategorySocialMedia"
-        }
-
-        excluded_rule {
-          name = "SignalNonBrowserUserAgent"
-        }
-
-        excluded_rule {
-          name = "SignalAutomatedBrowser"
-        }
-
-        excluded_rule {
-          name = "SignalKnownBotDataCenter"
+        dynamic "excluded_rule" {
+          for_each = [
+            "CategoryAdvertising",
+            "CategoryArchiver",
+            "CategoryContentFetcher",
+            "CategoryHttpLibrary",
+            "CategoryMiscellaneous",
+            "CategoryMonitoring",
+            "CategoryScrapingFramework",
+            "CategorySearchEngine",
+            "CategorySecurity",
+            "CategorySeo",
+            "CategorySocialMedia",
+            "SignalNonBrowserUserAgent",
+            "SignalAutomatedBrowser",
+            "SignalKnownBotDataCenter",
+          ]
+          content {
+            name = excluded_rule.value
+          }
         }
       }
     }
@@ -228,8 +190,13 @@ resource "aws_wafv2_web_acl" "main" {
         name        = "AWSManagedRulesAmazonIpReputationList"
         vendor_name = "AWS"
 
-        excluded_rule {
-          name = "AWSManagedIPReputationList"
+        dynamic "excluded_rule" {
+          for_each = [
+            "AWSManagedIPReputationList",
+          ]
+          content {
+            name = excluded_rule.value
+          }
         }
       }
     }
@@ -254,71 +221,34 @@ resource "aws_wafv2_web_acl" "main" {
         name        = "AWSManagedRulesCommonRuleSet"
         vendor_name = "AWS"
 
-        excluded_rule {
-          name = "CrossSiteScripting_BODY"
-        }
-        excluded_rule {
-          name = "CrossSiteScripting_COOKIE"
-        }
-        excluded_rule {
-          name = "CrossSiteScripting_QUERYARGUMENTS"
-        }
-        excluded_rule {
-          name = "CrossSiteScripting_URIPATH"
-        }
-        excluded_rule {
-          name = "EC2MetaDataSSRF_BODY"
-        }
-        excluded_rule {
-          name = "EC2MetaDataSSRF_COOKIE"
-        }
-        excluded_rule {
-          name = "EC2MetaDataSSRF_QUERYARGUMENTS"
-        }
-        excluded_rule {
-          name = "EC2MetaDataSSRF_URIPATH"
-        }
-        excluded_rule {
-          name = "GenericLFI_BODY"
-        }
-        excluded_rule {
-          name = "GenericLFI_QUERYARGUMENTS"
-        }
-        excluded_rule {
-          name = "GenericLFI_URIPATH"
-        }
-        excluded_rule {
-          name = "GenericRFI_BODY"
-        }
-        excluded_rule {
-          name = "GenericRFI_QUERYARGUMENTS"
-        }
-        excluded_rule {
-          name = "GenericRFI_URIPATH"
-        }
-        excluded_rule {
-          name = "NoUserAgent_HEADER"
-        }
-        excluded_rule {
-          name = "RestrictedExtensions_QUERYARGUMENTS"
-        }
-        excluded_rule {
-          name = "RestrictedExtensions_URIPATH"
-        }
-        excluded_rule {
-          name = "SizeRestrictions_BODY"
-        }
-        excluded_rule {
-          name = "SizeRestrictions_Cookie_HEADER"
-        }
-        excluded_rule {
-          name = "SizeRestrictions_QUERYSTRING"
-        }
-        excluded_rule {
-          name = "SizeRestrictions_URIPATH"
-        }
-        excluded_rule {
-          name = "UserAgent_BadBots_HEADER"
+        dynamic "excluded_rule" {
+          for_each = [
+            "CrossSiteScripting_BODY",
+            "CrossSiteScripting_COOKIE",
+            "CrossSiteScripting_QUERYARGUMENTS",
+            "CrossSiteScripting_URIPATH",
+            "EC2MetaDataSSRF_BODY",
+            "EC2MetaDataSSRF_COOKIE",
+            "EC2MetaDataSSRF_QUERYARGUMENTS",
+            "EC2MetaDataSSRF_URIPATH",
+            "GenericLFI_BODY",
+            "GenericLFI_QUERYARGUMENTS",
+            "GenericLFI_URIPATH",
+            "GenericRFI_BODY",
+            "GenericRFI_QUERYARGUMENTS",
+            "GenericRFI_URIPATH",
+            "NoUserAgent_HEADER",
+            "RestrictedExtensions_QUERYARGUMENTS",
+            "RestrictedExtensions_URIPATH",
+            "SizeRestrictions_BODY",
+            "SizeRestrictions_Cookie_HEADER",
+            "SizeRestrictions_QUERYSTRING",
+            "SizeRestrictions_URIPATH",
+            "UserAgent_BadBots_HEADER",
+          ]
+          content {
+            name = excluded_rule.value
+          }
         }
       }
     }
@@ -343,20 +273,16 @@ resource "aws_wafv2_web_acl" "main" {
         name        = "AWSManagedRulesKnownBadInputsRuleSet"
         vendor_name = "AWS"
 
-        excluded_rule {
-          name = "BadAuthToken_COOKIE_AUTHORIZATION"
-        }
-
-        excluded_rule {
-          name = "ExploitablePaths_URIPATH"
-        }
-
-        excluded_rule {
-          name = "Host_localhost_HEADER"
-        }
-
-        excluded_rule {
-          name = "PROPFIND_METHOD"
+        dynamic "excluded_rule" {
+          for_each = [
+            "BadAuthToken_COOKIE_AUTHORIZATION",
+            "ExploitablePaths_URIPATH",
+            "Host_localhost_HEADER",
+            "PROPFIND_METHOD",
+          ]
+          content {
+            name = excluded_rule.value
+          }
         }
       }
     }
@@ -381,16 +307,15 @@ resource "aws_wafv2_web_acl" "main" {
         name        = "AWSManagedRulesLinuxRuleSet"
         vendor_name = "AWS"
 
-        excluded_rule {
-          name = "LFI_BODY"
-        }
-
-        excluded_rule {
-          name = "LFI_QUERYARGUMENTS"
-        }
-
-        excluded_rule {
-          name = "LFI_URIPATH"
+        dynamic "excluded_rule" {
+          for_each = [
+            "LFI_BODY",
+            "LFI_QUERYARGUMENTS",
+            "LFI_URIPATH",
+          ]
+          content {
+            name = excluded_rule.value
+          }
         }
       }
     }
@@ -415,12 +340,14 @@ resource "aws_wafv2_web_acl" "main" {
         name        = "AWSManagedRulesPHPRuleSet"
         vendor_name = "AWS"
 
-        excluded_rule {
-          name = "PHPHighRiskMethodsVariables_BODY"
-        }
-
-        excluded_rule {
-          name = "PHPHighRiskMethodsVariables_QUERYARGUMENTS"
+        dynamic "excluded_rule" {
+          for_each = [
+            "PHPHighRiskMethodsVariables_BODY",
+            "PHPHighRiskMethodsVariables_QUERYARGUMENTS",
+          ]
+          content {
+            name = excluded_rule.value
+          }
         }
       }
     }
@@ -445,28 +372,18 @@ resource "aws_wafv2_web_acl" "main" {
         name        = "AWSManagedRulesSQLiRuleSet"
         vendor_name = "AWS"
 
-        excluded_rule {
-          name = "SQLiExtendedPatterns_QUERYARGUMENTS"
-        }
-
-        excluded_rule {
-          name = "SQLi_BODY"
-        }
-
-        excluded_rule {
-          name = "SQLi_COOKIE"
-        }
-
-        excluded_rule {
-          name = "SQLi_QUERYARGUMENTS"
-        }
-
-        excluded_rule {
-          name = "SQLi_QUERYSTRING_COUNT"
-        }
-
-        excluded_rule {
-          name = "SQLi_URIPATH"
+        dynamic "excluded_rule" {
+          for_each = [
+            "SQLiExtendedPatterns_QUERYARGUMENTS",
+            "SQLi_BODY",
+            "SQLi_COOKIE",
+            "SQLi_QUERYARGUMENTS",
+            "SQLi_QUERYSTRING_COUNT",
+            "SQLi_URIPATH",
+          ]
+          content {
+            name = excluded_rule.value
+          }
         }
       }
     }
@@ -480,7 +397,7 @@ resource "aws_wafv2_web_acl" "main" {
 
   visibility_config {
     cloudwatch_metrics_enabled = true
-    metric_name                = local.web_acl_prefix
+    metric_name                = local.prefix
     sampled_requests_enabled   = false
   }
 
@@ -488,8 +405,8 @@ resource "aws_wafv2_web_acl" "main" {
 }
 
 resource "aws_wafv2_ip_set" "ip_blocking" {
-  name        = "${local.web_acl_prefix}-ip-blocking"
-  description = "IP blocking for ${local.web_acl_prefix}"
+  name        = "${local.prefix}-ip-blocking"
+  description = "IP blocking for ${local.prefix}"
 
   ip_address_version = "IPV4"
   scope              = "REGIONAL"
@@ -511,5 +428,5 @@ resource "aws_wafv2_web_acl_association" "main" {
 }
 
 locals {
-  web_acl_prefix = "${var.name}-web-acl"
+  prefix = "${var.name}-web-acl"
 }
