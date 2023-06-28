@@ -8,14 +8,6 @@
  * resources. With this Terraform module, you can easily and efficiently set
  * up and manage AWS WAF for your Load Balancer, API Gateway, or Cognito
  * User Pool.
- *
- * Our team has extensive experience working with AWS WAF and has optimized
- * this module to provide the best possible experience for users. The module
- *  encapsulates all necessary configurations, making it easy to use and
- * integrate into your existing AWS environment. Whether you are just getting
- * started with AWS WAF or looking for a more efficient way to manage your
- * web application firewall, this Terraform module provides a preconfigured
- * solution for protecting your web applications from common exploits.
  */
 resource "aws_wafv2_web_acl" "main" {
   name        = local.prefix

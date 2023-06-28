@@ -1,6 +1,3 @@
-<!-- BEGIN_TF_DOCS -->
-[![Geek Cell GmbH](https://raw.githubusercontent.com/geekcell/.github/main/geekcell-github-banner.png)](https://www.geekcell.io/)
-
 ### Code Quality
 [![License](https://img.shields.io/github/license/geekcell/terraform-aws-waf)](https://github.com/geekcell/terraform-aws-waf/blob/master/LICENSE)
 [![GitHub release (latest tag)](https://img.shields.io/github/v/release/geekcell/terraform-aws-waf?logo=github&sort=semver)](https://github.com/geekcell/terraform-aws-waf/releases)
@@ -37,56 +34,3 @@ Comment in if Bridgecrew is configured
 [![Infrastructure Tests](https://www.bridgecrew.cloud/badges/github/geekcell/terraform-aws-security-group/fedramp_moderate)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=geekcell%2Fterraform-aws-security-group&benchmark=FEDRAMP+%28MODERATE%29)
 
 -->
-
-# Terraform AWS WAF
-
-This Terraform module provides a preconfigured solution for setting up
-AWS WAF in your AWS account. AWS WAF is a web application firewall that
-helps protect your web applications from common web exploits that could
-affect application availability, compromise security, or consume excessive
-resources. With this Terraform module, you can easily and efficiently set
-up and manage AWS WAF for your Load Balancer, API Gateway, or Cognito
-User Pool.
-
-Our team has extensive experience working with AWS WAF and has optimized
-this module to provide the best possible experience for users. The module
- encapsulates all necessary configurations, making it easy to use and
-integrate into your existing AWS environment. Whether you are just getting
-started with AWS WAF or looking for a more efficient way to manage your
-web application firewall, this Terraform module provides a preconfigured
-solution for protecting your web applications from common exploits.
-
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_name"></a> [name](#input\_name) | Friendly name of the rule. | `string` | n/a | yes |
-| <a name="input_resource_arn"></a> [resource\_arn](#input\_resource\_arn) | The Amazon Resource Name (ARN) of the resource to associate with the web ACL. This must be an ARN of an Application Load Balancer, an Amazon API Gateway stage, or an Amazon Cognito User Pool. | `string` | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | Tags to add to the Resources. | `map(any)` | `{}` | no |
-
-## Outputs
-
-No outputs.
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.4 |
-
-## Resources
-
-- resource.aws_wafv2_ip_set.ip_blocking (main.tf#407)
-- resource.aws_wafv2_web_acl.main (main.tf#20)
-- resource.aws_wafv2_web_acl_association.main (main.tf#425)
-
-# Examples
-### Basic Example
-```hcl
-module "example" {
-  source       = "../../"
-  name         = "waf"
-  resource_arn = "arn:aws:elasticloadbalancing:eu-central-1:123456789012:loadbalancer/app/my-load-balancer/1234567890123456"
-}
-```
-<!-- END_TF_DOCS -->
