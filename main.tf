@@ -59,8 +59,8 @@ resource "aws_wafv2_web_acl" "main" {
 
         scope_down_statement {
           byte_match_statement {
-            positional_constraint = "STARTS_WITH"
-            search_string         = "/api/"
+            positional_constraint = var.rate_limit_positional_constraint
+            search_string         = var.rate_limit_search_string
 
             field_to_match {
               uri_path {}
