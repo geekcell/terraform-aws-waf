@@ -137,28 +137,6 @@ resource "aws_wafv2_web_acl" "main" {
       managed_rule_group_statement {
         name        = "AWSManagedRulesBotControlRuleSet"
         vendor_name = "AWS"
-
-        dynamic "excluded_rule" {
-          for_each = [
-            "CategoryAdvertising",
-            "CategoryArchiver",
-            "CategoryContentFetcher",
-            "CategoryHttpLibrary",
-            "CategoryMiscellaneous",
-            "CategoryMonitoring",
-            "CategoryScrapingFramework",
-            "CategorySearchEngine",
-            "CategorySecurity",
-            "CategorySeo",
-            "CategorySocialMedia",
-            "SignalNonBrowserUserAgent",
-            "SignalAutomatedBrowser",
-            "SignalKnownBotDataCenter",
-          ]
-          content {
-            name = excluded_rule.value
-          }
-        }
       }
     }
 
@@ -181,15 +159,6 @@ resource "aws_wafv2_web_acl" "main" {
       managed_rule_group_statement {
         name        = "AWSManagedRulesAmazonIpReputationList"
         vendor_name = "AWS"
-
-        dynamic "excluded_rule" {
-          for_each = [
-            "AWSManagedIPReputationList",
-          ]
-          content {
-            name = excluded_rule.value
-          }
-        }
       }
     }
 
@@ -212,36 +181,6 @@ resource "aws_wafv2_web_acl" "main" {
       managed_rule_group_statement {
         name        = "AWSManagedRulesCommonRuleSet"
         vendor_name = "AWS"
-
-        dynamic "excluded_rule" {
-          for_each = [
-            "CrossSiteScripting_BODY",
-            "CrossSiteScripting_COOKIE",
-            "CrossSiteScripting_QUERYARGUMENTS",
-            "CrossSiteScripting_URIPATH",
-            "EC2MetaDataSSRF_BODY",
-            "EC2MetaDataSSRF_COOKIE",
-            "EC2MetaDataSSRF_QUERYARGUMENTS",
-            "EC2MetaDataSSRF_URIPATH",
-            "GenericLFI_BODY",
-            "GenericLFI_QUERYARGUMENTS",
-            "GenericLFI_URIPATH",
-            "GenericRFI_BODY",
-            "GenericRFI_QUERYARGUMENTS",
-            "GenericRFI_URIPATH",
-            "NoUserAgent_HEADER",
-            "RestrictedExtensions_QUERYARGUMENTS",
-            "RestrictedExtensions_URIPATH",
-            "SizeRestrictions_BODY",
-            "SizeRestrictions_Cookie_HEADER",
-            "SizeRestrictions_QUERYSTRING",
-            "SizeRestrictions_URIPATH",
-            "UserAgent_BadBots_HEADER",
-          ]
-          content {
-            name = excluded_rule.value
-          }
-        }
       }
     }
 
@@ -264,18 +203,6 @@ resource "aws_wafv2_web_acl" "main" {
       managed_rule_group_statement {
         name        = "AWSManagedRulesKnownBadInputsRuleSet"
         vendor_name = "AWS"
-
-        dynamic "excluded_rule" {
-          for_each = [
-            "BadAuthToken_COOKIE_AUTHORIZATION",
-            "ExploitablePaths_URIPATH",
-            "Host_localhost_HEADER",
-            "PROPFIND_METHOD",
-          ]
-          content {
-            name = excluded_rule.value
-          }
-        }
       }
     }
 
@@ -298,17 +225,6 @@ resource "aws_wafv2_web_acl" "main" {
       managed_rule_group_statement {
         name        = "AWSManagedRulesLinuxRuleSet"
         vendor_name = "AWS"
-
-        dynamic "excluded_rule" {
-          for_each = [
-            "LFI_BODY",
-            "LFI_QUERYARGUMENTS",
-            "LFI_URIPATH",
-          ]
-          content {
-            name = excluded_rule.value
-          }
-        }
       }
     }
 
@@ -331,16 +247,6 @@ resource "aws_wafv2_web_acl" "main" {
       managed_rule_group_statement {
         name        = "AWSManagedRulesPHPRuleSet"
         vendor_name = "AWS"
-
-        dynamic "excluded_rule" {
-          for_each = [
-            "PHPHighRiskMethodsVariables_BODY",
-            "PHPHighRiskMethodsVariables_QUERYARGUMENTS",
-          ]
-          content {
-            name = excluded_rule.value
-          }
-        }
       }
     }
 
@@ -363,20 +269,6 @@ resource "aws_wafv2_web_acl" "main" {
       managed_rule_group_statement {
         name        = "AWSManagedRulesSQLiRuleSet"
         vendor_name = "AWS"
-
-        dynamic "excluded_rule" {
-          for_each = [
-            "SQLiExtendedPatterns_QUERYARGUMENTS",
-            "SQLi_BODY",
-            "SQLi_COOKIE",
-            "SQLi_QUERYARGUMENTS",
-            "SQLi_QUERYSTRING_COUNT",
-            "SQLi_URIPATH",
-          ]
-          content {
-            name = excluded_rule.value
-          }
-        }
       }
     }
 
