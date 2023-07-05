@@ -53,6 +53,8 @@ User Pool.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | Friendly name of the rule. | `string` | n/a | yes |
+| <a name="input_rate_limit_positional_constraint"></a> [rate\_limit\_positional\_constraint](#input\_rate\_limit\_positional\_constraint) | The area within the portion of a web request that you want AWS WAF to search for rate limiting headers. Valid values: EXACTLY, STARTS\_WITH, ENDS\_WITH, CONTAINS, and CONTAINS\_WORD. The default value is EXACTLY. | `string` | `"STARTS_WITH"` | no |
+| <a name="input_rate_limit_search_string"></a> [rate\_limit\_search\_string](#input\_rate\_limit\_search\_string) | String value that you want AWS WAF to search for. AWS WAF searches only in the part of web requests that you designate for inspection in field\_to\_match. The maximum length of the value is 50 bytes. | `string` | `"/api"` | no |
 | <a name="input_resource_arn"></a> [resource\_arn](#input\_resource\_arn) | The Amazon Resource Name (ARN) of the resource to associate with the web ACL. This must be an ARN of an Application Load Balancer, an Amazon API Gateway stage, or an Amazon Cognito User Pool. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to add to the Resources. | `map(any)` | `{}` | no |
 
@@ -68,9 +70,9 @@ No outputs.
 
 ## Resources
 
-- resource.aws_wafv2_ip_set.ip_blocking (main.tf#399)
+- resource.aws_wafv2_ip_set.ip_blocking (main.tf#291)
 - resource.aws_wafv2_web_acl.main (main.tf#12)
-- resource.aws_wafv2_web_acl_association.main (main.tf#417)
+- resource.aws_wafv2_web_acl_association.main (main.tf#309)
 
 # Examples
 ### Basic Example
